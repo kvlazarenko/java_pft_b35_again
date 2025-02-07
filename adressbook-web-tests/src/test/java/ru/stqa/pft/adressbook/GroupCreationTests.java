@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.testng.Assert.fail;
 
 public class GroupCreationTests {
@@ -13,10 +15,7 @@ public class GroupCreationTests {
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.chrome.driver", "C:\\Tools\\chromedriver.exe");
 		wb = new ChromeDriver();
-	}
-
-	@Test
-	public void testGroupCreation() throws Exception {
+		wb.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		wb.get("http://localhost/addressbook/group.php");
 		wb.findElement(By.name("user")).click();
 		wb.findElement(By.name("user")).clear();
@@ -25,6 +24,10 @@ public class GroupCreationTests {
 		wb.findElement(By.name("pass")).clear();
 		wb.findElement(By.name("pass")).sendKeys("secret");
 		wb.findElement(By.xpath("//input[@value='Login']")).click();
+	}
+
+	@Test
+	public void testGroupCreation() throws Exception {
 		wb.findElement(By.linkText("groups")).click();
 		wb.findElement(By.name("new")).click();
 		wb.findElement(By.name("group_name")).click();
