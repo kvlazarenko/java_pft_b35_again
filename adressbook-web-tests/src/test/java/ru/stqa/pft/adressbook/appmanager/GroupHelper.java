@@ -25,11 +25,9 @@ public class GroupHelper extends HelperBase{
 		type(By.name("group_footer"), groupDate.getFooter());
 	}
 
-
 	public void initGroupCreation() {
 		click(By.name("new"));
 	}
-
 	public void deleteSelectedGroups() {
 		click(By.name("delete"));
 	}
