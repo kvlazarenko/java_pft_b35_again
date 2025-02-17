@@ -5,6 +5,9 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.Browser;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,10 +17,23 @@ public class ApplicationManager {
 	private GroupHelper groupHelper;
 	private NavigationHelper navigationHelper;
 	private ContactHelper contactHelper;
+	private String browserName;
+
+	public ApplicationManager(String browserName) {
+
+		this.browserName = browserName;
+	}
 
 	public void init() {
+		if (browserName == Browser.CHROME.browserName()){
+			wd = new ChromeDriver();
+		} else if (browserName == Browser.FIREFOX.browserName()) {
+			wd = new FirefoxDriver();
+		} else if (browserName == Browser.IE.browserName()) {
+			wd = new InternetExplorerDriver();
+		}
 		System.setProperty("webdriver.chrome.driver", "C:\\Tools\\chromedriver.exe");
-		wd = new ChromeDriver();
+
 		wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		wd.get("http://localhost/addressbook/group.php");
 		sessionHelper = new SessionHelper(wd);
