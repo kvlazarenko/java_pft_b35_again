@@ -8,6 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.Browser;
 
+import java.util.concurrent.TimeUnit;
+
 public class ApplicationManager {
 	protected WebDriver wd;
 	private SessionHelper sessionHelper;
@@ -31,8 +33,8 @@ public class ApplicationManager {
 		}
 		System.setProperty("webdriver.chrome.driver", "C:\\Tools\\chromedriver.exe");
 
-		//wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		wd.get("http://localhost/addressbook/group.php");
+		wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		wd.get("http://localhost/addressbook");
 		sessionHelper = new SessionHelper(wd);
 		groupHelper = new GroupHelper(wd);
 		navigationHelper = new NavigationHelper(wd);
