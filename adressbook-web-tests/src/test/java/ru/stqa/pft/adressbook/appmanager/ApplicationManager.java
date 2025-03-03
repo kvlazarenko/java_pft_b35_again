@@ -24,7 +24,7 @@ public class ApplicationManager {
 	}
 
 	public void init() {
-		if (browserName == Browser.CHROME.browserName()){
+		if (browserName == Browser.CHROME.browserName()) {
 			wd = new ChromeDriver();
 		} else if (browserName == Browser.FIREFOX.browserName()) {
 			wd = new FirefoxDriver();
@@ -54,17 +54,19 @@ public class ApplicationManager {
 			return false;
 		}
 	}
-		public GroupHelper getGroupHelper() {
+
+	public GroupHelper group() {
 		return groupHelper;
 	}
 
-	public NavigationHelper getNavigationHelper() {
+	public NavigationHelper goTo() {
 		return navigationHelper;
 	}
 
 	public SessionHelper getSessionHelper() {
 		return sessionHelper;
 	}
+
 	public ContactHelper getContactHelper() {
 		return contactHelper;
 	}

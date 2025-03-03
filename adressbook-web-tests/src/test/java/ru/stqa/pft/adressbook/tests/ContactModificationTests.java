@@ -3,7 +3,6 @@ package ru.stqa.pft.adressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactDate;
-import ru.stqa.pft.adressbook.model.GroupDate;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -13,7 +12,7 @@ public class ContactModificationTests extends TestBase {
 
 	@Test(enabled = false)
 	public void testContactModification() {
-		app.getNavigationHelper().gotoHomePage();
+		app.goTo().gotoHomePage();
 		if (!app.getContactHelper().isThereAContact()) {
 			app.getContactHelper().createContact(new ContactDate("firstname1", "lastname1"
 							, "phone1", "e-mail1", "test1"), true);
