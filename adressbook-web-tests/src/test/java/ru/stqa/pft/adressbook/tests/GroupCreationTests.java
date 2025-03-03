@@ -16,7 +16,7 @@ public class GroupCreationTests extends TestBase {
 	public void testGroupCreation() throws Exception {
 		app.goTo().groupPage();
 		List<GroupDate> before = app.group().list();
-		GroupDate group = new GroupDate("test1", null, null);
+		GroupDate group = new GroupDate().withName("test1");
 		app.group().create(group);
 		List<GroupDate> after = app.group().list();
 		Assert.assertEquals(after.size(), before.size() + 1);
@@ -38,7 +38,7 @@ public class GroupCreationTests extends TestBase {
 		//};
 		//int max1 = after.stream().max(byId).get().getId();
 
-		group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+		group.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
 
 		before.add(group);
 

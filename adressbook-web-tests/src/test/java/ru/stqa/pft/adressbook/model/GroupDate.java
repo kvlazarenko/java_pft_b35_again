@@ -4,29 +4,27 @@ import java.util.Objects;
 
 public class GroupDate {
 
-	private int id;
-	private final String name;
-	private final String header;
-	private final String footer;
+	private int id = Integer.MAX_VALUE;
+	private String name;
+	private String header;
+	private String footer;
 
-	public GroupDate(int id, String name, String header, String footer) {
 
+	public GroupDate withId(int id) {
 		this.id = id;
-		this.name = name;
-		this.header = header;
-		this.footer = footer;
+		return this;
 	}
-
-	public GroupDate(String name, String header, String footer) {
-
-		this.id = Integer.MAX_VALUE;
+	public GroupDate withName(String name) {
 		this.name = name;
-		this.header = header;
-		this.footer = footer;
+		return this;
 	}
-
-	public int getId() {
-		return id;
+	public GroupDate withHeader(String header) {
+		this.header = header;
+		return this;
+	}
+	public GroupDate withFooter(String footer) {
+		this.footer = footer;
+		return this;
 	}
 
 	@Override
@@ -36,6 +34,23 @@ public class GroupDate {
 						", name='" + name + '\'' +
 						'}';
 	}
+
+
+	public int getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
+
+	public String getHeader() {
+		return header;
+	}
+
+	public String getFooter() {
+		return footer;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -49,19 +64,11 @@ public class GroupDate {
 		return Objects.hash(id, name);
 	}
 
-	public String getName() {
-		return name;
+	public void setHeader(String header) {
+		this.header = header;
 	}
 
-	public String getHeader() {
-		return header;
-	}
-
-	public String getFooter() {
-		return footer;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setFooter(String footer) {
+		this.footer = footer;
 	}
 }
