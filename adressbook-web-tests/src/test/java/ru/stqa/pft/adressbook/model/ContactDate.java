@@ -11,7 +11,8 @@ public class ContactDate {
 	private final String email;
 	private String group;
 
-	public ContactDate(String firstname, String lastname, String phone, String email, String group) {
+	public
+	ContactDate(String firstname, String lastname, String phone, String email, String group) {
 		this.id = Integer.MAX_VALUE;
 		this.firstname = firstname;
 		this.lastname = lastname;
