@@ -3,35 +3,30 @@ package ru.stqa.pft.adressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactDate;
+import ru.stqa.pft.adressbook.model.Contacts;
 
-import java.util.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
 
-	@Test(enabled = false)
+	@Test
 	public void testContactCreation() throws Exception {
-		app.goTo().gotoHomePage();
-		List<ContactDate> before = app.getContactHelper().getContactList();
-		ContactDate contact = new ContactDate("firstname1", "lastname1"
-						, "phone1", "e-mail1", "test1");
-		app.getContactHelper().createContact(contact, true);
-		List<ContactDate> after = app.getContactHelper().getContactList();
+		app.goTo().homePage();
+		Contacts before = app.contact().all();
+		ContactDate contact = new ContactDate().withFirstname("firstname1").withLastname("lastname1")
+						.withPhone("phone1").withEmail("e-mail1");
+		app.contact().create(contact, true);
+		Contacts after = app.contact().all();
 
-		// Сравнение размеров списков
+		// Сравнение размеров множеств
 		Assert.assertEquals(before.size() + 1, after.size());
 
 		// Добавление максимального ID для контакта
-		contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+		//contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
 
-    // Добавление контакта в список before
-		before.add(contact);
-
-		// Сортировка списков before и after
-		before.sort(Comparator.comparing(ContactDate::getId));
-		after.sort(Comparator.comparing(ContactDate::getId));
-
-		// Сравнение списков before и after
-		Assert.assertEquals(before, after);
-		Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
+		int maxId = after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();
+		contact.withId(maxId);
+		assertThat(after, equalTo(before.withAdded(contact)));
 	}
 }

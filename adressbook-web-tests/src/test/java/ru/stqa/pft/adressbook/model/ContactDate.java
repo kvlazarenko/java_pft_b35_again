@@ -4,15 +4,16 @@ import java.util.Objects;
 
 public class ContactDate {
 
-	private int id;
-	private final String firstname;
-	private final String lastname;
-	private final String phone;
-	private final String email;
+	private int id = Integer.MAX_VALUE;
+	private String firstname;
+	private String lastname;
+	private String phone;
+	private String email;
 	private String group;
 
-	public
-	ContactDate(String firstname, String lastname, String phone, String email, String group) {
+	/*
+	public ContactDate(String firstname, String lastname, String phone, String email, String group) {
+
 		this.id = Integer.MAX_VALUE;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -21,13 +22,43 @@ public class ContactDate {
 		this.group = group;
 	}
 
-	public ContactDate(int id, String firstname, String lastname, String phone, String email, String group) {
+	public ContactDate(String firstname, String lastname, String phone, String email) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.phone = phone;
 		this.email = email;
 		this.group = group;
+	}
+ */
+	public ContactDate withId(int id) {
+		this.id = id;
+		return this;
+	}
+
+	public ContactDate withFirstname(String firstname) {
+		this.firstname = firstname;
+		return this;
+	}
+
+	public ContactDate withLastname(String lastname) {
+		this.lastname = lastname;
+		return this;
+	}
+
+	public ContactDate withPhone(String phone) {
+		this.phone = phone;
+		return this;
+	}
+
+	public ContactDate withEmail(String email) {
+		this.email = email;
+		return this;
+	}
+
+	public ContactDate withGroup(String group) {
+		this.group = group;
+		return this;
 	}
 
 	public int getId() {
@@ -53,9 +84,8 @@ public class ContactDate {
 	public String getGroup() {
 		return group;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
+
 	@Override
 	public String toString() {
 		return "ContactDate{" +
@@ -77,5 +107,6 @@ public class ContactDate {
 	public int hashCode() {
 		return Objects.hash(id, firstname, lastname);
 	}
+
 
 }
