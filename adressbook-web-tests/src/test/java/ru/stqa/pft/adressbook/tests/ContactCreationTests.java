@@ -17,11 +17,9 @@ public class ContactCreationTests extends TestBase {
 		ContactDate contact = new ContactDate().withFirstname("firstname1").withLastname("lastname1")
 						.withPhone("phone1").withEmail("e-mail1");
 		app.contact().create(contact, true);
-		Contacts after = app.contact().all();
-
 		// Сравнение размеров множеств
-		Assert.assertEquals(before.size() + 1, after.size());
-
+		Assert.assertEquals(app.contact().count(), before.size() + 1);
+		Contacts after = app.contact().all();
 		// Добавление максимального ID для контакта
 		//contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
 
