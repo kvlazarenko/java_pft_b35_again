@@ -26,9 +26,17 @@ public class Groups extends ForwardingSet<GroupDate> {
 		groups.add(group);
 		return groups;
 	}
+
 	public Groups without(GroupDate group) {
 		Groups groups = new Groups(this);
 		groups.remove(group);
 		return groups;
 	}
+
+	/*@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+		)
+	*/
 }
+
