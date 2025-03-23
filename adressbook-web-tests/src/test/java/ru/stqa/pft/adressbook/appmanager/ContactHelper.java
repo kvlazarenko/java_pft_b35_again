@@ -109,7 +109,7 @@ public class ContactHelper extends HelperBase {
 		//List<WebElement> cells = row.findElements(By.tagName("td"));
 		//cells.get(7).findElement(By.tagName("a")).click();
 
-		wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).	click();
+		wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
 	}
 	//wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a",id))).	click();
 //wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a",id))).	click();
@@ -124,13 +124,18 @@ public class ContactHelper extends HelperBase {
 		contactCash = new Contacts();
 		List<WebElement> elements = wd.findElements(By.name("entry"));
 		for (WebElement element : elements) {
-			String lastname = element.findElements(By.tagName("td")).get(1).getText();
-			String firstname = element.findElements(By.tagName("td")).get(2).getText();
 			Integer id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-			//ContactDate contact = new ContactDate(firstname, lastname, null, null);
-			contactCash.add(new ContactDate().withId(id).withFirstname(firstname).withLastname(lastname));
+			String lastname = cells(element).get(1).getText();
+			String firstname = cells(element).get(2).getText();
+			String[] phones = cells(element).get(5).getText().split("\n");
+			contactCash.add(new ContactDate().withId(id).withFirstname(firstname).withLastname(lastname)
+							.withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
 		}
 		return new Contacts(contactCash);
+	}
+
+	private List<WebElement> cells(WebElement element) {
+		return element.findElements(By.tagName("td"));
 	}
 }
 
