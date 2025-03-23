@@ -7,9 +7,12 @@ public class ContactDate {
 	private int id = Integer.MAX_VALUE;
 	private String firstname;
 	private String lastname;
-	private String phone;
+	private String homePhone;
+	private String mobilePhone;
+	private String workPhone;
 	private String email;
 	private String group;
+
 
 	/*
 	public ContactDate(String firstname, String lastname, String phone, String email, String group) {
@@ -46,8 +49,19 @@ public class ContactDate {
 		return this;
 	}
 
-	public ContactDate withPhone(String phone) {
-		this.phone = phone;
+
+	public ContactDate withHomePhone(String homePhone) {
+		this.homePhone = homePhone;
+		return this;
+	}
+
+	public ContactDate withMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
+		return this;
+	}
+
+	public ContactDate withWorkPhone(String workPhone) {
+		this.workPhone = workPhone;
 		return this;
 	}
 
@@ -73,8 +87,16 @@ public class ContactDate {
 		return lastname;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getHomePhone() {
+		return homePhone;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public String getWorkPhone() {
+		return workPhone;
 	}
 
 	public String getEmail() {
@@ -107,6 +129,4 @@ public class ContactDate {
 	public int hashCode() {
 		return Objects.hash(id, firstname, lastname);
 	}
-
-
 }

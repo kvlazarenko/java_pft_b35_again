@@ -15,12 +15,15 @@ public class ContactModificationTests extends TestBase {
 		app.goTo().homePage();
 		if (!app.contact().isThereAContact()) {
 			app.contact().create(new ContactDate().withFirstname("firstname1")
-							.withLastname("lastname1").withPhone("phone1").withEmail("e-mail1"), true);
+							.withLastname("lastname1").withHomePhone("homephone").withMobilePhone("momilehone").withWorkPhone("workphone")
+							.withEmail("e-mail1"), true);
 		}
 		Contacts before = app.contact().all();
 		ContactDate modifiedContact = before.iterator().next();
-		ContactDate contact = new ContactDate().withId(modifiedContact.getId()).withFirstname("mod_firstname1").withLastname("mod_lastname1")
-						.withPhone("mod_phone1").withEmail("mod_e-mail1");
+		ContactDate contact = new ContactDate().withId(modifiedContact.getId())
+						.withFirstname("mod_firstname1").withLastname("mod_lastname1")
+						.withHomePhone("homephone").withMobilePhone("momilehone").withWorkPhone("workphone")
+						.withEmail("e-mail1");
 		app.contact().modify(contact);
 		Assert.assertEquals(app.contact().count(), before.size());
 		Contacts after = app.contact().all();

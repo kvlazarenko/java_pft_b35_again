@@ -28,7 +28,9 @@ public class ContactHelper extends HelperBase {
 
 		type(By.name("firstname"), contactDate.getFirstname());
 		type(By.name("lastname"), contactDate.getLastname());
-		type(By.name("home"), contactDate.getPhone());
+		type(By.name("home"), contactDate.getHomePhone());
+		type(By.name("mobile"), contactDate.getMobilePhone());
+		type(By.name("work"), contactDate.getWorkPhone());
 		type(By.name("email"), contactDate.getEmail());
 
 		if (creation) {
@@ -54,9 +56,11 @@ public class ContactHelper extends HelperBase {
 	public void initContactModification(int id) {
 		wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
 	}
+
 	public int count() {
 		return wd.findElements(By.name("selected[]")).size();
 	}
+
 	public void submitContactModification() {
 		click(By.name("update"));
 	}
@@ -87,6 +91,29 @@ public class ContactHelper extends HelperBase {
 	public boolean isThereAContact() {
 		return isElementPresent(By.name("selected[]"));
 	}
+
+	public ContactDate infoFromEditForm(ContactDate contact) {
+		initContactModificationById(contact.getId());
+		String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+		String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+		String home = wd.findElement(By.name("home")).getAttribute("value");
+		String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+		String work = wd.findElement(By.name("work")).getAttribute("value");
+		return new ContactDate().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+						.withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+	}
+
+	private void initContactModificationById(int id) {
+		//WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+		//WebElement row = checkbox.findElement(By.xpath("./../.."));
+		//List<WebElement> cells = row.findElements(By.tagName("td"));
+		//cells.get(7).findElement(By.tagName("a")).click();
+
+		wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).	click();
+	}
+	//wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a",id))).	click();
+//wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a",id))).	click();
+
 
 	private Contacts contactCash = null;
 
