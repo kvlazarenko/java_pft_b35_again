@@ -10,6 +10,7 @@ public class ContactDate {
 	private String homePhone;
 	private String mobilePhone;
 	private String workPhone;
+	private String allPhone;
 	private String email;
 	private String group;
 
@@ -65,6 +66,11 @@ public class ContactDate {
 		return this;
 	}
 
+	public ContactDate withAllPhones(String allPhone) {
+		this.allPhone = allPhone;
+		return this;
+	}
+
 	public ContactDate withEmail(String email) {
 		this.email = email;
 		return this;
@@ -98,6 +104,11 @@ public class ContactDate {
 	public String getWorkPhone() {
 		return workPhone;
 	}
+
+	public String getAllPhones() {
+		return allPhone;
+	}
+
 
 	public String getEmail() {
 		return email;
