@@ -7,12 +7,16 @@ public class ContactDate {
 	private int id = Integer.MAX_VALUE;
 	private String firstname;
 	private String lastname;
+	private String group;
+	private String address;
 	private String homePhone;
 	private String mobilePhone;
 	private String workPhone;
 	private String allPhone;
 	private String email;
-	private String group;
+	private String email2;
+	private String email3;
+	private String allemail;
 
 
 	/*
@@ -50,6 +54,10 @@ public class ContactDate {
 		return this;
 	}
 
+	public ContactDate withAddress(String address) {
+		this.address = address;
+		return this;
+	}
 
 	public ContactDate withHomePhone(String homePhone) {
 		this.homePhone = homePhone;
@@ -76,6 +84,21 @@ public class ContactDate {
 		return this;
 	}
 
+	public ContactDate withEmail2(String email2) {
+		this.email2 = email2;
+		return this;
+	}
+
+	public ContactDate withEmail3(String email3) {
+		this.email3 = email3;
+		return this;
+	}
+
+	public ContactDate withAllemail(String allemail) {
+		this.allemail = allemail;
+		return this;
+	}
+
 	public ContactDate withGroup(String group) {
 		this.group = group;
 		return this;
@@ -93,6 +116,9 @@ public class ContactDate {
 		return lastname;
 	}
 
+	public String getAddress() {
+		return address;
+	}
 	public String getHomePhone() {
 		return homePhone;
 	}
@@ -109,10 +135,22 @@ public class ContactDate {
 		return allPhone;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
+
+	public String getEmail2() {
+		return email2;
+	}
+
+	public String getEmail3() {
+		return email3;
+	}
+
+	public String getAllEmails() {
+		return allemail;
+	}
+
 
 	public String getGroup() {
 		return group;
