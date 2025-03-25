@@ -1,5 +1,6 @@
 package ru.stqa.pft.adressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactDate {
@@ -17,29 +18,13 @@ public class ContactDate {
 	private String email2;
 	private String email3;
 	private String allemail;
+	private File photo;
 
 
-	/*
-	public ContactDate(String firstname, String lastname, String phone, String email, String group) {
 
-		this.id = Integer.MAX_VALUE;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.phone = phone;
-		this.email = email;
-		this.group = group;
-	}
 
-	public ContactDate(String firstname, String lastname, String phone, String email) {
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.phone = phone;
-		this.email = email;
-		this.group = group;
-	}
- */
-	public ContactDate withId(int id) {
+
+		public ContactDate withId(int id) {
 		this.id = id;
 		return this;
 	}
@@ -103,7 +88,10 @@ public class ContactDate {
 		this.group = group;
 		return this;
 	}
-
+	public ContactDate withPhoto(File photo) {
+		this.photo = photo;
+		return this;
+	}
 	public int getId() {
 		return id;
 	}
@@ -154,6 +142,9 @@ public class ContactDate {
 
 	public String getGroup() {
 		return group;
+	}
+	public File getPhoto() {
+		return photo;
 	}
 
 
