@@ -28,10 +28,14 @@ public class ContactHelper extends HelperBase {
 
 		type(By.name("firstname"), contactDate.getFirstname());
 		type(By.name("lastname"), contactDate.getLastname());
+		type(By.name("address"), contactDate.getLastname());
 		type(By.name("home"), contactDate.getHomePhone());
 		type(By.name("mobile"), contactDate.getMobilePhone());
 		type(By.name("work"), contactDate.getWorkPhone());
 		type(By.name("email"), contactDate.getEmail());
+		type(By.name("email2"), contactDate.getEmail2());
+		type(By.name("email3"), contactDate.getEmail3());
+
 
 		if (creation) {
 			new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);

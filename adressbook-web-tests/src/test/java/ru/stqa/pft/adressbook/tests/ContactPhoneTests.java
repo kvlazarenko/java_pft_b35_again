@@ -15,28 +15,19 @@ public class ContactPhoneTests extends TestBase {
 	@Test
 	public void testContactPhones() {
 		app.goTo().homePage();
-		ContactDate contact = app.contact().all().iterator().next();
-		ContactDate contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+		if (!app.contact().isThereAContact()) {
+			app.contact().create(new ContactDate().withFirstname("firstname1").withLastname("lastname1")
+							.withAddress("Бульвар Олимпийский").withHomePhone("homephone").withMobilePhone("mobilephone").withWorkPhone("workphone")
+							.withEmail("e-mail1").withEmail2("e-mail12").withEmail3("e-mail13"), true);
+		}
 
-		assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
-	}
-
-	@Test
-	public void testContactEmails() {
-		app.goTo().homePage();
-		ContactDate contact = app.contact().all().iterator().next();
-		ContactDate contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-
-		assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
-	}
-
-	@Test
-	public void testContactAddress() {
 		app.goTo().homePage();
 		ContactDate contact = app.contact().all().iterator().next();
 		ContactDate contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
 		assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
+		assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+		assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
 	}
 
 	private String mergePhones(ContactDate contact) {

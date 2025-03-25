@@ -14,9 +14,9 @@ public class ContactModificationTests extends TestBase {
 	public void testContactModification() {
 		app.goTo().homePage();
 		if (!app.contact().isThereAContact()) {
-			app.contact().create(new ContactDate().withFirstname("firstname1")
-							.withLastname("lastname1").withHomePhone("homephone").withMobilePhone("momilehone").withWorkPhone("workphone")
-							.withEmail("e-mail1"), true);
+			app.contact().create(new ContactDate().withFirstname("firstname1").withLastname("lastname1")
+							.withAddress("Бульвар Олимпийский").withHomePhone("homephone").withMobilePhone("mobilephone").withWorkPhone("workphone")
+							.withEmail("e-mail1").withEmail2("e-mail12").withEmail3("e-mail13"), true);
 		}
 		Contacts before = app.contact().all();
 		ContactDate modifiedContact = before.iterator().next();
