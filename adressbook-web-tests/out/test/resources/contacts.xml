@@ -1,0 +1,35 @@
+<list>
+  <contacts>
+    <firstname>firstname0</firstname>
+    <lastname>lastname0</lastname>
+    <address>Бульвар Олимпийский0</address>
+    <homePhone>homephone0</homePhone>
+    <mobilePhone>mobilephone0</mobilePhone>
+    <workPhone>workphone0</workPhone>
+    <email>e-mail10</email>
+    <email2>e-mail120</email2>
+    <email3>e-mail130</email3>
+  </contacts>
+  <contacts>
+    <firstname>firstname1</firstname>
+    <lastname>lastname1</lastname>
+    <address>Бульвар Олимпийский1</address>
+    <homePhone>homephone1</homePhone>
+    <mobilePhone>mobilephone1</mobilePhone>
+    <workPhone>workphone1</workPhone>
+    <email>e-mail11</email>
+    <email2>e-mail121</email2>
+    <email3>e-mail131</email3>
+  </contacts>
+  <contacts>
+    <firstname>firstname2</firstname>
+    <lastname>lastname2</lastname>
+    <address>Бульвар Олимпийский2</address>
+    <homePhone>homephone2</homePhone>
+    <mobilePhone>mobilephone2</mobilePhone>
+    <workPhone>workphone2</workPhone>
+    <email>e-mail12</email>
+    <email2>e-mail122</email2>
+    <email3>e-mail132</email3>
+  </contacts>
+</list>
