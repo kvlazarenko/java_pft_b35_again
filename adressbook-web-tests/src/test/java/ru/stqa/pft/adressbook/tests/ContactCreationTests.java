@@ -17,9 +17,17 @@ public class ContactCreationTests extends TestBase {
 		app.goTo().homePage();
 		Contacts before = app.contact().all();
 		File photo = new File("src/test/resources/img.png");
-		ContactDate contact = new ContactDate().withFirstname("firstname1").withLastname("lastname1").withPhoto(photo)
-						.withAddress("Бульвар Олимпийский").withHomePhone("homephone").withMobilePhone("mobilephone").withWorkPhone("workphone")
-						.withEmail("e-mail1").withEmail2("e-mail12").withEmail3("e-mail13");
+		ContactDate contact = new ContactDate()
+						.withFirstname("firstname1")
+						.withLastname("lastname1")
+						.withPhoto(photo)
+						.withAddress("Бульвар Олимпийский")
+						.withHomePhone("homephone")
+						.withMobilePhone("mobilephone")
+						.withWorkPhone("workphone")
+						.withEmail("e-mail1")
+						.withEmail2("e-mail12")
+						.withEmail3("e-mail13");
 		app.contact().create(contact, true);
 		// Сравнение размеров множеств
 		Assert.assertEquals(app.contact().count(), before.size() + 1);
