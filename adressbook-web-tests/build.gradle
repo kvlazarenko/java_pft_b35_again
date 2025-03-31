@@ -4,10 +4,21 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    testImplementation group: 'org.testng', name: 'testng', version: '7.10.2'
+    testImplementation group: 'org.testng', name: 'testng', version: '6.9.10'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.28.1'
     testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '3.0'
     implementation("com.beust:jcommander:1.82")
     implementation("com.thoughtworks.xstream:xstream:1.4.8")
     implementation("com.google.code.gson:gson:2.12.1")
+}
+task testGroups(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/testng-groups.xml'
+    }
+}
+
+task testContacts(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/testng-contacts.xml'
+    }
 }
