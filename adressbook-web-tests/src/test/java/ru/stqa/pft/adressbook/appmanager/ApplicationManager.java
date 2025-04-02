@@ -41,7 +41,8 @@ public class ApplicationManager {
 		} else if (browserName == Browser.IE.browserName()) {
 			wd = new InternetExplorerDriver();
 		}
-		System.setProperty("webdriver.chrome.driver", "C:\\Tools\\chromedriver.exe");
+		//System.setProperty("webdriver.chrome.driver", "C:\\Tools\\chromedriver.exe");
+		//properties.getProperty("webdriver.chrome.driver");
 
 		wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		wd.get(properties.getProperty("web.baseUrl"));
