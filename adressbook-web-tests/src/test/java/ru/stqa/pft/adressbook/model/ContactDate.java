@@ -2,33 +2,57 @@ package ru.stqa.pft.adressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("contacts")
+@Entity
+@Table(name = "addressbook")
 public class ContactDate {
-@XStreamOmitField
+	@XStreamOmitField
+	@Id
+	@Column(name = "id")
 	private int id = Integer.MAX_VALUE;
+	@Column(name = "firstname")
 	private String firstname;
+	@Column(name = "lastname")
 	private String lastname;
+	@Transient
 	private String group;
+	@Column(name = "address")
+	@Type(type = "text")
 	private String address;
+	@Column(name = "home")
+	@Type(type = "text")
 	private String homePhone;
+	@Column(name = "mobile")
+	@Type(type = "text")
 	private String mobilePhone;
+	@Column(name = "work")
+	@Type(type = "text")
 	private String workPhone;
+	@Transient
 	private String allPhone;
+	@Column(name = "email")
+	@Type(type = "text")
 	private String email;
+	@Column(name = "email2")
+	@Type(type = "text")
 	private String email2;
+	@Column(name = "email3")
+	@Type(type = "text")
 	private String email3;
+	@Transient
 	private String allemail;
-	private File photo;
+	@Column(name = "photo")
+	@Type(type = "text")
+	private String photo;
 
 
-
-
-
-		public ContactDate withId(int id) {
+	public ContactDate withId(int id) {
 		this.id = id;
 		return this;
 	}
@@ -92,10 +116,12 @@ public class ContactDate {
 		this.group = group;
 		return this;
 	}
+
 	public ContactDate withPhoto(File photo) {
-		this.photo = photo;
+		this.photo = photo.getPath();
 		return this;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -111,6 +137,7 @@ public class ContactDate {
 	public String getAddress() {
 		return address;
 	}
+
 	public String getHomePhone() {
 		return homePhone;
 	}
@@ -147,8 +174,9 @@ public class ContactDate {
 	public String getGroup() {
 		return group;
 	}
+
 	public File getPhoto() {
-		return photo;
+		return new File(photo);
 	}
 
 
