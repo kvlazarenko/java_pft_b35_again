@@ -50,20 +50,20 @@ public class ContactDateGenerators {
 		}
 	}
 
-		private List<ContactDate> generateContacts ( int count){
-			List<ContactDate> contacts = new ArrayList<ContactDate>();
-			for (int i = 0; i < count; i++) {
-				contacts.add(new ContactDate()
-								.withFirstname(String.format("firstname" + "%s", i))
-								.withLastname(String.format("lastname" + "%s", i))
-								.withAddress(String.format("Бульвар Олимпийский" + "%s", i))
-								.withHomePhone(String.format("homephone" + "%s", i))
-								.withMobilePhone(String.format("mobilephone" + "%s", i))
-								.withWorkPhone(String.format("workphone" + "%s", i))
-								.withEmail(String.format("e-mail1" + "%s", i))
-								.withEmail2(String.format("e-mail12" + "%s", i))
-								.withEmail3(String.format("e-mail13" + "%s", i)));
-			}
-			return contacts;
+	private List<ContactDate> generateContacts(int count) {
+		List<ContactDate> contacts = new ArrayList<ContactDate>();
+		for (int i = 0; i < count; i++) {
+			contacts.add(new ContactDate()
+							.withFirstname(String.format("firstname" + "%s", i))
+							.withLastname(String.format("lastname" + "%s", i))
+							.withAddress(String.format("Бульвар Олимпийский" + "%s", i))
+							.withHomePhone(String.format("homephone" + "%s", i))
+							.withMobilePhone(String.format("mobilephone" + "%s", i))
+							.withWorkPhone(String.format("workphone" + "%s", i))
+							.withEmail(String.format("e-mail1" + "%s", i))
+							.withEmail2(String.format("e-mail12" + "%s", i))
+							.withEmail3(String.format("e-mail13" + "%s", i)));
 		}
+		return contacts;
 	}
+}

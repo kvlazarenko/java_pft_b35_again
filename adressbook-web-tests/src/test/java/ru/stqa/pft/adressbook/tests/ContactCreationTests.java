@@ -38,10 +38,10 @@ public class ContactCreationTests extends TestBase {
 	@Test(dataProvider = "validContactFromXml")
 	public void testContactCreation(ContactDate contact) throws Exception {
 		app.goTo().homePage();
-		Contacts before = app.contact().all();
+		Contacts before = app.db().contacts();
 		app.contact().create(contact, true);
 		Assert.assertEquals(app.contact().count(), before.size() + 1);
-		Contacts after = app.contact().all();
+		Contacts after = app.db().contacts();
 		int maxId = after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();
 		contact.withId(maxId);
 		assertThat(after, equalTo(before.withAdded(contact)));
@@ -51,7 +51,7 @@ public class ContactCreationTests extends TestBase {
 	public void testCurrentDir() {
 		File currentDir = new File(".");
 		System.out.println(currentDir.getAbsolutePath());
-		File photo = new File("src/test/resources/img.jpg");
+		File photo = new File("src/test/resources/img.png");
 		System.out.println(photo.getAbsolutePath());
 		System.out.println(photo.exists());
 	}
