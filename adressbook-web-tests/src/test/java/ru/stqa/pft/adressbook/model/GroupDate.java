@@ -5,11 +5,10 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("group")
 @Entity
@@ -22,20 +21,6 @@ public class GroupDate {
 	@Expose
 	@Column(name = "group_name")
 	private String name;
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		GroupDate groupDate = (GroupDate) o;
-		return id == groupDate.id && Objects.equals(name, groupDate.name) && Objects.equals(header, groupDate.header) && Objects.equals(footer, groupDate.footer);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, header, footer);
-	}
-
 	@Expose
 	@Column(name = "group_header")
 	@Type(type = "text")
@@ -44,7 +29,8 @@ public class GroupDate {
 	@Column(name = "group_footer")
 	@Type(type = "text")
 	private String footer;
-
+	@ManyToMany(mappedBy = "groups")
+	private Set<ContactDate> contacts = new HashSet<ContactDate>();
 
 	public GroupDate withId(int id) {
 		this.id = id;
@@ -66,15 +52,6 @@ public class GroupDate {
 		return this;
 	}
 
-	@Override
-	public String toString() {
-		return "GroupDate{" +
-						"id='" + id + '\'' +
-						", name='" + name + '\'' +
-						'}';
-	}
-
-
 	public int getId() {
 		return id;
 	}
@@ -90,7 +67,9 @@ public class GroupDate {
 	public String getFooter() {
 		return footer;
 	}
-
+	public Contacts getContacts() {
+		return new Contacts(contacts);
+	}
 	public void setHeader(String header) {
 		this.header = header;
 	}
@@ -98,4 +77,26 @@ public class GroupDate {
 	public void setFooter(String footer) {
 		this.footer = footer;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		GroupDate groupDate = (GroupDate) o;
+		return id == groupDate.id && Objects.equals(name, groupDate.name) && Objects.equals(header, groupDate.header) && Objects.equals(footer, groupDate.footer);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, header, footer);
+	}
+
+	@Override
+	public String toString() {
+		return "GroupDate{" +
+						"id='" + id + '\'' +
+						", name='" + name + '\'' +
+						'}';
+	}
+
 }

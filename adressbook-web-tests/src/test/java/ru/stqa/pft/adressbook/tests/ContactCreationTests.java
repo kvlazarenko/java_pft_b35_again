@@ -6,6 +6,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactDate;
 import ru.stqa.pft.adressbook.model.Contacts;
+import ru.stqa.pft.adressbook.model.GroupDate;
+import ru.stqa.pft.adressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,14 +39,15 @@ public class ContactCreationTests extends TestBase {
 
 	@Test(dataProvider = "validContactFromXml")
 	public void testContactCreation(ContactDate contact) throws Exception {
-		app.goTo().homePage();
 		Contacts before = app.db().contacts();
-		app.contact().create(contact, true);
-		Assert.assertEquals(app.contact().count(), before.size() + 1);
+		app.goTo().homePage();
+		app.contact().create((contact), true);
+		Assert.assertEquals(app.contact().count(), before.size()+1);
+		before.add(contact);
 		Contacts after = app.db().contacts();
 		int maxId = after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();
 		contact.withId(maxId);
-		assertThat(after, equalTo(before.withAdded(contact)));
+		assertThat(after, equalTo(before));
 	}
 
 	@Test(enabled = false)

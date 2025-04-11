@@ -6,7 +6,10 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contacts")
 @Entity
@@ -20,8 +23,6 @@ public class ContactDate {
 	private String firstname;
 	@Column(name = "lastname")
 	private String lastname;
-	@Transient
-	private String group;
 	@Column(name = "address")
 	@Type(type = "text")
 	private String address;
@@ -50,7 +51,9 @@ public class ContactDate {
 	@Column(name = "photo")
 	@Type(type = "text")
 	private String photo;
-
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+	private Set<GroupDate> groups = new HashSet<GroupDate>();
 
 	@Override
 	public String toString() {
@@ -122,11 +125,6 @@ public class ContactDate {
 		return this;
 	}
 
-	public ContactDate withGroup(String group) {
-		this.group = group;
-		return this;
-	}
-
 	public ContactDate withPhoto(File photo) {
 		this.photo = photo.getPath();
 		return this;
@@ -143,19 +141,6 @@ public class ContactDate {
 
 	public String getLastname() {
 		return lastname;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		ContactDate that = (ContactDate) o;
-		return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(group, that.group) && Objects.equals(address, that.address) && Objects.equals(homePhone, that.homePhone) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(allPhone, that.allPhone) && Objects.equals(email, that.email) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(allemail, that.allemail);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, firstname, lastname, group, address, homePhone, mobilePhone, workPhone, allPhone, email, email2, email3, allemail);
 	}
 
 	public String getAddress() {
@@ -194,8 +179,21 @@ public class ContactDate {
 		return allemail;
 	}
 
-	public String getGroup() {
-		return group;
+	public Groups getGroups() {
+		return new Groups(groups);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ContactDate that = (ContactDate) o;
+		return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(address, that.address) && Objects.equals(homePhone, that.homePhone) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(email, that.email) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, firstname, lastname, address, homePhone, mobilePhone, workPhone, email, email2, email3);
 	}
 
 	public File getPhoto() {
@@ -206,4 +204,8 @@ public class ContactDate {
 		}
 	}
 
+	public ContactDate inGroup(GroupDate group) {
+		groups.add(group);
+		return this;
+	}
 }

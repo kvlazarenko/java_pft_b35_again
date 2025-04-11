@@ -30,6 +30,7 @@ public class ContactModificationTests extends TestBase {
 
 		Contacts before = app.db().contacts();
 		ContactDate modifiedContact = before.iterator().next();
+		before.remove(modifiedContact);
 		ContactDate contact = new ContactDate()
 						.withId(modifiedContact.getId())
 						.withFirstname("mod_firstname")
@@ -41,10 +42,11 @@ public class ContactModificationTests extends TestBase {
 						.withEmail("mod_e-mail1")
 						.withEmail2("mod_email2")
 						.withEmail3("mod_email3");
+		before.add(contact);
 		app.contact().modify(contact);
 		Assert.assertEquals(app.contact().count(), before.size());
 		Contacts after = app.db().contacts();
 		Assert.assertEquals(before.size(), after.size());
-		assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+		assertThat(after, equalTo(before));
 	}
 }

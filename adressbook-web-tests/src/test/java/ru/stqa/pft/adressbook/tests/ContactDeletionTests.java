@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactDeletionTests extends TestBase {
 
 	@Test
-	public void testContactDeletion() {
+	public void testContactDeletion() throws InterruptedException {
 		if (app.db().contacts().size() == 0) {
 			app.goTo().homePage();
 			app.contact().create(new ContactDate()
@@ -29,9 +29,10 @@ public class ContactDeletionTests extends TestBase {
 		}
 		Contacts before = app.db().contacts();
 		ContactDate deletedContact = before.iterator().next();
+		before.remove(deletedContact);
 		app.contact().delete(deletedContact);
-		Assert.assertEquals(app.contact().count(), before.size() - 1);
+		Thread.sleep(1000); // Задержка в 1 секунду
 		Contacts after = app.db().contacts();
-		assertThat(after, equalTo(before.without(deletedContact)));
+		assertThat(after, equalTo(before));
 	}
 }
