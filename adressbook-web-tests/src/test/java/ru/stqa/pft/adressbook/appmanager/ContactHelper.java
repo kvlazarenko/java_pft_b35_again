@@ -7,8 +7,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.adressbook.model.ContactDate;
 import ru.stqa.pft.adressbook.model.Contacts;
+import ru.stqa.pft.adressbook.model.GroupDate;
 
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -37,30 +39,44 @@ public class ContactHelper extends HelperBase {
 		type(By.name("email3"), contactDate.getEmail3());
 
 
-//		if (creation) {
-//			if (contactDate.getGroups().size() > 0) {
-//				Assert.assertTrue(contactDate.getGroups().size() == 1);
-//				new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactDate.getGroups().iterator().next().getName());
-//			}
-//		} else {
-//			Assert.assertFalse(isElementPresent(By.name("new_group")));
-//		}
-//	}
 		if (creation) {
-			new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);
+			if (contactDate.getGroups().size() > 0) {
+				Assert.assertTrue(contactDate.getGroups().size() == 1);
+				new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactDate.getGroups().iterator().next().getName());
+			}
 		} else {
 			Assert.assertFalse(isElementPresent(By.name("new_group")));
 		}
 	}
+//		if (creation) {
+//			new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);
+//		} else {
+//			Assert.assertFalse(isElementPresent(By.name("new_group")));
+//		}
+//	}
 
+
+	public void addContactToGroup(int contactId, int groupId) {
+		homePage();
+		selectContactById(contactId);
+		selectGroup(groupId);
+		clickAdd();
+	}
+	public void homePage() {
+		click(By.linkText("home"));
+	}
 	public void returnToHomePage() {
 		click(By.linkText("home page"));
 	}
-
 	public void selectContactById(int id) {
 		wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
 	}
-
+	private void selectGroup(int Id) {
+		click(By.xpath("(//select[@name='to_group']/option[@value='" + Id + "'])"));
+	}
+	private void clickAdd() {
+		click(By.xpath("(//input[@name='add'])"));
+	}
 	public void deleteSelectedContact() {
 		click(By.xpath("//input[@value='Delete']"));
 		wd.switchTo().alert().accept();
@@ -156,6 +172,40 @@ public class ContactHelper extends HelperBase {
 
 	private List<WebElement> cells(WebElement element) {
 		return element.findElements(By.tagName("td"));
+	}
+
+	public ContactDate findContactWithoutGroup(Contacts contacts) {
+		for (ContactDate contact : contacts) {
+			Set<GroupDate> contactInGroup = contact.getGroups();
+			if (contactInGroup.size() == 0) {
+				return contact;
+			}
+		}
+		return null;
+	}
+
+	public ContactDate findContactWithGroup(Contacts contacts) {
+		for (ContactDate contact : contacts) {
+			Set<GroupDate> contactInGroup = contact.getGroups();
+			if (contactInGroup.size() > 0) {
+				return contact;
+			}
+		}
+		return null;
+	}
+	public void selectAllGroup() {
+		click(By.xpath("(//select[@name='group']/option[text()='[all]'])"));
+	}
+	public void filterByGroup(int groupId) {
+		click(By.xpath("(//select[@name='group']/option[@value='" + groupId + "'])"));
+	}
+	public void removeContactFromGroup(int contactId, int groupId) {
+		filterByGroup(groupId);
+		selectContactById(contactId);
+		removeFromGroup();
+	}
+	public void removeFromGroup() {
+		click(By.xpath("(//input[@name='remove'])"));
 	}
 }
 
