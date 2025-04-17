@@ -18,12 +18,9 @@ public class ApplicationManager {
 	private String browserName;
 
 	public ApplicationManager(String browserName) {
-
 		this.browserName = browserName;
 		properties = new Properties();
-
 	}
-
 
 	public void init() throws IOException {
 		String target = System.getProperty("target", "local");
@@ -44,6 +41,14 @@ public class ApplicationManager {
 
 	public void stop() {
 		wd.quit();
+	}
+
+	public HttpSession newSession() {
+		return new HttpSession(this);
+	}
+
+	public String getProperty(String key) {
+		return properties.getProperty(key);
 	}
 }
 
