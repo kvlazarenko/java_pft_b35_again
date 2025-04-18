@@ -14,8 +14,9 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 	private final Properties properties;
-	protected WebDriver wd;
+	private WebDriver wd;
 	private String browserName;
+	private RegistrationHelper registrationHelper;
 
 	public ApplicationManager(String browserName) {
 		this.browserName = browserName;
@@ -25,22 +26,16 @@ public class ApplicationManager {
 	public void init() throws IOException {
 		String target = System.getProperty("target", "local");
 		properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-		if (browserName == Browser.CHROME.browserName()) {
-			wd = new ChromeDriver();
-		} else if (browserName == Browser.FIREFOX.browserName()) {
-			wd = new FirefoxDriver();
-		} else if (browserName == Browser.IE.browserName()) {
-			wd = new InternetExplorerDriver();
-		}
-		System.setProperty("webdriver.chrome.driver", "C:\\Tools\\chromedriver.exe");
-		properties.getProperty("webdriver.chrome.driver");
 
-		wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-		wd.get(properties.getProperty("web.baseUrl"));
+		//System.setProperty("webdriver.chrome.driver", "C:\\Tools\\chromedriver.exe");
+		//properties.getProperty("webdriver.chrome.driver");
+
 	}
 
 	public void stop() {
-		wd.quit();
+		if (wd != null) {
+			wd.quit();
+		}
 	}
 
 	public HttpSession newSession() {
@@ -49,6 +44,28 @@ public class ApplicationManager {
 
 	public String getProperty(String key) {
 		return properties.getProperty(key);
+	}
+
+	public RegistrationHelper registration() {
+		if (registrationHelper == null) {
+			registrationHelper = new RegistrationHelper(this);
+		}
+		return registrationHelper;
+	}
+
+	public WebDriver getDriver() {
+		if (wd == null) {
+			if (browserName == Browser.CHROME.browserName()) {
+				wd = new ChromeDriver();
+			} else if (browserName == Browser.FIREFOX.browserName()) {
+				wd = new FirefoxDriver();
+			} else if (browserName == Browser.IE.browserName()) {
+				wd = new InternetExplorerDriver();
+			}
+			wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+			wd.get(properties.getProperty("web.baseUrl"));
+		}
+		return wd;
 	}
 }
 
