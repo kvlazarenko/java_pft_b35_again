@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.Browser;
+import org.openqa.selenium.remote.BrowserType;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,14 +15,18 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
 	private final Properties properties;
 	private WebDriver wd;
-	private String browserName;
+	//private String browserName;
+	private String browser;
 	private RegistrationHelper registrationHelper;
 	private FtpHelper ftp;
 	private MailHelper mailHelper;
 	private JamesHelper jamesHelper;
+	private NavigationHelper navigationHelper;
+	private SessionHelper sessionHelper;
 
-	public ApplicationManager(String browserName) {
-		this.browserName = browserName;
+	public ApplicationManager(String browser) {
+		//this.browserName = browserName;
+		this.browser = browser;
 		properties = new Properties();
 	}
 
@@ -49,6 +53,20 @@ public class ApplicationManager {
 		return properties.getProperty(key);
 	}
 
+	public NavigationHelper navigationHelper() {
+		if (navigationHelper == null) {
+			navigationHelper = new NavigationHelper(this);
+		}
+		return navigationHelper;
+	}
+
+	public SessionHelper session() {
+		if (sessionHelper == null) {
+			sessionHelper = new SessionHelper(this);
+		}
+		return sessionHelper;
+	}
+
 	public RegistrationHelper registration() {
 		if (registrationHelper == null) {
 			registrationHelper = new RegistrationHelper(this);
@@ -65,11 +83,11 @@ public class ApplicationManager {
 
 	public WebDriver getDriver() {
 		if (wd == null) {
-			if (browserName == Browser.CHROME.browserName()) {
+			if (browser.equals(BrowserType.CHROME)) {
 				wd = new ChromeDriver();
-			} else if (browserName == Browser.FIREFOX.browserName()) {
+			} else if (browser.equals(BrowserType.FIREFOX)) {
 				wd = new FirefoxDriver();
-			} else if (browserName == Browser.IE.browserName()) {
+			} else if (browser.equals(BrowserType.IE)) {
 				wd = new InternetExplorerDriver();
 			}
 			wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
